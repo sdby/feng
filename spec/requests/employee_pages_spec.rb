@@ -40,6 +40,13 @@ describe "EmployeePages" do
       it "should create an employee" do
         expect {click_button submit}.to change(Employee, :count).by(1)
       end
+
+      describe "after saving the employee" do
+        before {click_button submit}
+        let(:employee){Employee.find_by_email('bai.li@google.com')}
+
+        it {should have_link('Sign out')}
+      end
     end
   end
 end

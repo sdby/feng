@@ -32,6 +32,8 @@ describe Employee do
   it {should respond_to(:password)}
   it {should respond_to(:password_confirmation)}
 
+  it {should respond_to(:remember_token)}
+
   it {should respond_to(:authenticate)}
 
   it {should be_valid}
@@ -113,5 +115,10 @@ describe Employee do
       it {should_not==employee_for_invalid_password}
       specify {employee_for_invalid_password.should be_false}
     end
+  end
+
+  describe "remember_token" do
+    before {@employee.save}
+    its(:remember_token){should_not be_blank}
   end
 end
