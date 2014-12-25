@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   	if employee && employee.authenticate(params[:session][:password])
   	  # Sign the employee in and redirect to the employee's show page.
   	  sign_in employee
-  	  redirect_to employee
+  	  redirect_back_or employee
   	else
   	  flash.now[:danger]='Invalid email/password combination' # Not quite right!
   	  render 'new'
