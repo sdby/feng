@@ -1,5 +1,7 @@
 Feng::Application.routes.draw do
 
+  get "employers/new"
+
   resources :employees
   resources :sessions, only: [:new, :create, :destroy]
   root to: 'static_pages#home'
