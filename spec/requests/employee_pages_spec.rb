@@ -49,7 +49,7 @@ describe "EmployeePages" do
     end
   end
 
-  describe "" do
+  describe "profile page" do
     let(:employee){FactoryGirl.create(:employee)}
     before {visit employee_path(employee)}
 

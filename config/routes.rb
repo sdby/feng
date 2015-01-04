@@ -1,13 +1,12 @@
 Feng::Application.routes.draw do
 
-  get "employers/new"
-
   resources :employees
+  resources :employers
   resources :sessions, only: [:new, :create, :destroy]
   root to: 'static_pages#home'
   
   match '/employeesignup', to:'employees#new'
-  # match '/employersignup'
+  match '/employersignup', to:'employers#new'
 
   match '/signin', to:'sessions#new'
   match '/signout', to:'sessions#destroy', via: :delete

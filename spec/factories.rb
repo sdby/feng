@@ -12,4 +12,14 @@ FactoryGirl.define do
   	  admin true
   	end
   end
+
+  factory :employer do
+    name "John Chang"
+    email "john@ibm.com"
+    address "huai hai rd"
+    contact "john"
+    phone "23432"
+    password "foobar"
+    password_confirmation "foobar"
+  end
 end
