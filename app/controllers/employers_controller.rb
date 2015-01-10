@@ -11,7 +11,7 @@ class EmployersController < ApplicationController
   def create
   	@employer=Employer.new(params[:employer])
   	if @employer.save
-  	  # Handle a succesful save.
+      sign_in @employer
       flash[:success]="Welcome to the talent highland!"
       redirect_to @employer
   	else

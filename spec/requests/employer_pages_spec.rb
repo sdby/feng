@@ -41,6 +41,15 @@ describe "Employer pages" do
       it "should create a employer" do
         expect {click_button submit}.to change(Employer, :count).by(1)
       end
+
+      describe "after saving the employer" do
+        before {click_button submit}
+        let(:employer){Employer.find_by_email('employer@example.com')}
+
+        it{should have_selector('h1', text: employer.name)}
+        it{should have_selector('div.alert.alert-success', text: 'Welcome')}
+        it{should have_link('Sign out')}
+      end
     end
   end
 end

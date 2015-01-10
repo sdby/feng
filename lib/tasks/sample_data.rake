@@ -9,5 +9,7 @@ namespace :db do
   	  password="password"
   	  Employee.create!(name:name, email:email, phone:"323298", resume:"abundant experience", attachment:"cv.doc", password:password, password_confirmation:password)
   	end
+
+    Employer.create!(name:"Example Employer", email:"example@apple.com", address:"888 renming rd", contact:"wangling", phone:"3298", password:"foobar", password_confirmation:"foobar")
   end
 end

@@ -38,6 +38,26 @@ describe "AuthenticationPages" do
         it {should have_link('Sign in')}
       end
   	end
+
+    describe "with valid information - employer" do
+      let(:employer){FactoryGirl.create(:employer)}
+      before do
+        fill_in "Email", with: employer.email
+        fill_in "Password", with: employer.password
+        click_button "Sign in"
+      end
+
+      it {should have_link('Employers', href: employers_path)}
+      it {should have_link('Profile', href: employer_path(employer))}
+      it {should have_link('Settings', href: edit_employer_path(employer))}
+      it {should have_link('Sign out', href: signout_path)}
+      it {should_not have_link('Sign in', href: signin_path)}
+
+      describe "followed by signout" do
+        before {click_link "Sign out"}
+        it {should have_link('Sign in')}
+      end
+    end    
   end
 
   describe "authorization" do
