@@ -41,11 +41,7 @@ describe "AuthenticationPages" do
 
     describe "with valid information - employer" do
       let(:employer){FactoryGirl.create(:employer)}
-      before do
-        fill_in "Email", with: employer.email
-        fill_in "Password", with: employer.password
-        click_button "Sign in"
-      end
+      before{sign_in employer}
 
       it {should have_link('Employers', href: employers_path)}
       it {should have_link('Profile', href: employer_path(employer))}
@@ -124,6 +120,70 @@ describe "AuthenticationPages" do
       describe "submitting a DELETE request to the Employees#destroy action" do
         before {delete employee_path(employee)}
         specify {response.should redirect_to(root_path)}
+      end
+    end
+
+    describe "for non-signed-in employers" do
+      let(:employer){FactoryGirl.create(:employer)}
+
+      describe "when attempting to visit a protected page" do
+        before do
+          visit edit_employer_path(employer)
+          fill_in "Email", with: employer.email
+          fill_in "Password", with: employer.password
+          click_button "Sign in"
+        end
+
+        describe "after signing in" do
+          it "should render the desired protected page" do
+            page.should have_selector('h1', text: 'Update your profile')
+          end
+        end
+      end
+
+      describe "in the Employers controller" do
+        describe "visiting the edit page" do
+          before{visit edit_employer_path(employer)}
+          it{should have_selector('h1', text: 'Sign in')}
+        end
+
+        describe "submitting to the update action" do
+          before{put employer_path(employer)}
+          specify{response.should redirect_to(signin_path)}
+        end
+
+        describe "visiting the employer index" do
+          before{visit employers_path}
+          it{should have_selector('h1', text: 'Sign in')}
+        end
+      end
+    end
+
+    describe "as wrong employer" do
+      let(:employer){FactoryGirl.create(:employer)}
+      let(:wrong_employer){FactoryGirl.create(:employer, email: "wrong@alcatel.com")}
+      before{sign_in employer}
+
+      describe "visiting Employers#edit page" do
+        before{visit edit_employer_path(wrong_employer)}
+        it{should_not have_selector('h1', text: 'Update your profile')}
+      end
+
+      describe "submitting a PUT request to the Employers#update action" do
+        before{put employer_path(wrong_employer)}
+        specify{response.should redirect_to(root_path)}
+      end
+    end
+
+    describe "as non-admin employer" do
+      let(:employer){FactoryGirl.create(:employer)}
+      let(:non_admin){FactoryGirl.create(:employer)}
+
+      before{sign_in non_admin}
+
+      describe "submitting a DELETE request to the Employers#destroy action" do
+        before{delete employer_path(employer)}
+        specify{response.should redirect_to(root_path)}
       end
     end
   end

@@ -1,0 +1,7 @@
+<li>
+  <%=gravatar_for employer %>
+  <%=link_to employer.name, employer %>
+  <% if current_employer.admin? && !current_employer?(employer) %>
+    | <%=link_to "delete", employer, method: :delete, confirm: "You sure?" %>
+  <% end %>
+</li>

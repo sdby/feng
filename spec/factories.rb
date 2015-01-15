@@ -14,12 +14,16 @@ FactoryGirl.define do
   end
 
   factory :employer do
-    name "John Chang"
-    email "john@ibm.com"
+    sequence(:name){|n| "Company #{n}"}
+    sequence(:email){|n| "company_#{n}@apple.com"}
     address "huai hai rd"
     contact "john"
     phone "23432"
     password "foobar"
     password_confirmation "foobar"
+
+    factory :employer_admin do
+      admin true
+    end
   end
 end
