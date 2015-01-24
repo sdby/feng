@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150115080549) do
+ActiveRecord::Schema.define(:version => 20150118144743) do
 
   create_table "employees", :force => true do |t|
     t.string   "name"
@@ -44,5 +44,16 @@ ActiveRecord::Schema.define(:version => 20150115080549) do
 
   add_index "employers", ["email"], :name => "index_employers_on_email", :unique => true
   add_index "employers", ["remember_token"], :name => "index_employers_on_remember_token"
+
+  create_table "jobs", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.integer  "employer_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "status",      :default => true
+  end
+
+  add_index "jobs", ["employer_id", "created_at"], :name => "index_jobs_on_employer_id_and_created_at"
 
 end

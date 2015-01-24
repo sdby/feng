@@ -47,9 +47,19 @@ describe "Employer pages" do
 
   describe "profile page" do
   	let(:employer){FactoryGirl.create(:employer)}
+
+    let!(:j1){FactoryGirl.create(:job, employer: employer, title: "software engineer", description: "who will develop web application")}
+    let!(:j2){FactoryGirl.create(:job, employer: employer, title: "ror developer", description: "who will developer ror app")}
+
   	before {visit employer_path(employer)}
 
   	it {should have_selector('h1', text: employer.name)}
+
+    describe "jobs" do
+      it{should have_content(j1.title)}
+      it{should have_content(j2.title)}
+      it{should have_content(employer.jobs.count)}
+    end
   end
 
   describe "Employer signup page" do

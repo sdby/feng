@@ -1,0 +1,14 @@
+<li>
+  <span class="content">
+  	<%=job.title %>
+  </span>
+  <span class="content">
+  	<%=job.description %>
+  </span>
+  <span class="timestamp">
+  	Posted <%=time_ago_in_words(job.created_at) %> ago.
+  </span>
+  <% if current_employer?(job.employer) %>
+    <%=link_to "delete", job, method: :delete, confirm: "You sure?", title: job.title %>
+  <% end %>
+</li>

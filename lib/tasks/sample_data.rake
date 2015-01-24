@@ -18,5 +18,12 @@ namespace :db do
       password="foobar"
       Employer.create!(name:name, email:email, address:"999 huai hai rd", contact:"han zheng", phone:"090983", password: password, password_confirmation: password)
     end
+
+    employers=Employer.all(limit: 6)
+    50.times do
+      title="business developer"
+      description=Faker::Lorem.sentence(5)
+      employers.each {|employer| employer.jobs.create!(title: title, description: description)}
+    end
   end
 end

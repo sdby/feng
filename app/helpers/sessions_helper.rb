@@ -76,6 +76,13 @@ module SessionsHelper
     employer==current_employer
   end
 
+  def signed_in_employer
+    unless employer_signed_in?
+      store_location
+      redirect_to signin_path, notice: "Please sign in."
+    end
+  end
+
   def sign_out
     if self.current_employee
       self.current_employee=nil

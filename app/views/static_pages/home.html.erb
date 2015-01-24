@@ -3,6 +3,23 @@
 <p>Find me in app/views/static_pages/home.html.erb</p>
 -->
 
+<% if employer_signed_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section>
+        <%=render 'shared/employer_info' %>
+      </section>
+      <section>
+        <%=render 'shared/job_form' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>Job Feed</h3>
+      <%=render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+
 <div class="jumbotron">
   <h1>欢迎来到人才高地！</h1>
   <%=link_to "招聘公司马上注册！", employersignup_path, class:"btn btn-lg btn-primary" %>
@@ -44,3 +61,5 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<% end %>
+

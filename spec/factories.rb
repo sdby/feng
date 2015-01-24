@@ -26,4 +26,11 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :job do
+    title "Sales Manager"
+    description "the guy must have abundant key account selling experience and solid technical background"
+    # status true
+    employer
+  end
 end

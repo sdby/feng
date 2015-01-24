@@ -16,6 +16,8 @@ class Employer < ActiveRecord::Base
   attr_accessible :address, :contact, :email, :name, :phone, :password, :password_confirmation
   has_secure_password
 
+  has_many :jobs, dependent: :destroy
+
   before_save {|employer| employer.email=email.downcase}
 
   before_save :create_remember_token
@@ -26,6 +28,11 @@ class Employer < ActiveRecord::Base
 
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true
+
+  def feed
+    # This is preliminary. See "Following employers" for the full implementation.
+    Job.where("employer_id=?", id)
+  end
 
   private
     def create_remember_token

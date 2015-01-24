@@ -38,6 +38,10 @@ describe Employer do
   it {should respond_to(:admin)}
   it {should respond_to(:authenticate)}
 
+  it {should respond_to(:jobs)}
+
+  it {should respond_to(:feed)}
+
   it {should be_valid}
   it {should_not be_admin}
 
@@ -130,5 +134,37 @@ describe Employer do
   describe "remember_token" do
     before {@employer.save}
     its(:remember_token){should_not be_blank}
+  end
+
+  describe "job associations" do
+    before{@employer.save}
+    let!(:older_job) do
+      FactoryGirl.create(:job, employer: @employer, created_at: 1.day.ago)
+    end
+    let!(:newer_job) do
+      FactoryGirl.create(:job, employer: @employer, created_at: 1.hour.ago)
+    end
+
+    it "should have the right jobs in the right order" do
+      @employer.jobs.should==[newer_job, older_job]
+    end
+
+    it "should destroy associated jobs" do
+      jobs=@employer.jobs
+      @employer.destroy
+      jobs.each do |job|
+        Job.find_by_id(job.id).should be_nil
+      end
+    end
+
+    describe "status" do
+      let(:unfollowed_job) do
+        FactoryGirl.create(:job, employer: FactoryGirl.create(:employer))
+      end
+
+      its(:feed){should include(newer_job)}
+      its(:feed){should include(older_job)}
+      its(:feed){should_not include(unfollowed_job)}
+    end
   end
 end

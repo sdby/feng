@@ -6,6 +6,7 @@ class EmployersController < ApplicationController
   
   def show
   	@employer=Employer.find(params[:id])
+    @jobs=@employer.jobs.paginate(page: params[:page])
   end
 
   def new
@@ -48,12 +49,12 @@ class EmployersController < ApplicationController
 
   private
 
-    def signed_in_employer
-      unless employer_signed_in?
-        store_location
-        redirect_to signin_path, notice: "Please sign in."
-      end
-    end
+    # def signed_in_employer
+    #   unless employer_signed_in?
+    #     store_location
+    #     redirect_to signin_path, notice: "Please sign in."
+    #   end
+    # end
 
     def correct_employer
       @employer=Employer.find(params[:id])

@@ -1,0 +1,12 @@
+<a href="<%=employer_path(current_employer) %>">
+  <%=gravatar_for current_employer %>
+</a>
+<h1>
+  <%=current_employer.name %>
+</h1>
+<span>
+  <%=link_to "view my profile", current_employer %>
+</span>
+<span>
+  <%=pluralize(current_employer.jobs.count, "job") %>
+</span>

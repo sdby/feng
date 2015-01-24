@@ -1,0 +1,18 @@
+<li id="<%=feed_job.id %>">
+  <%=link_to gravatar_for(feed_job.employer), feed_job.employer %>
+  <span class="employer">
+  	<%=link_to feed_job.employer.name, feed_job.employer %>
+  </span>
+  <span class="title">
+  	<%=feed_job.title %>
+  </span>
+  <span class="description">
+  	<%=feed_job.description %>
+  </span>
+  <span class="timestamp">
+  	Posted <%=time_ago_in_words(feed_job.created_at) %> ago.
+  </span>
+  <% if current_employer?(feed_job.employer) %>
+    <%=link_to "delete", feed_job, method: :delete, confirm: "You sure?", title: feed_job.title %>
+  <% end %>
+</li>
