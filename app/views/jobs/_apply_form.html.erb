@@ -1,0 +1,7 @@
+  <div id="apply_form">
+  	<% if current_employee.applying?(@job) %>
+  	  <%=render 'unapply' %>
+  	<% else %>
+  	  <%=render 'apply' %>
+  	<% end %>
+  </div>

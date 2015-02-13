@@ -1,0 +1,6 @@
+<%=form_for(current_employee.applications.build(job_id: @job.id), remote: true) do |f| %>
+  <div>
+  	<%=f.hidden_field :job_id %>
+  </div>
+  <%=f.submit "apply", class: "btn btn-lg btn-primary" %>
+<% end %>

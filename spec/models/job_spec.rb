@@ -14,6 +14,10 @@ describe Job do
   it{should respond_to(:employer_id)}
 
   it{should respond_to(:employer)}
+
+  it{should respond_to(:reverse_applications)}
+  it{should respond_to(:employees)}
+
   its(:employer){should==employer}
 
   it{should be_valid}
@@ -39,5 +43,18 @@ describe Job do
   describe "with blank description" do
     before{@job.description=""}
     it{should_not be_valid}
+  end
+
+  describe "applying" do
+    let(:employee){FactoryGirl.create(:employee)}
+    before do
+      @job.save
+      employee.save
+      employee.apply!(@job)
+    end
+
+    describe "job" do
+      its(:employees){should include(employee)}
+    end
   end
 end

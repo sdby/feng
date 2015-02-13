@@ -1,0 +1,15 @@
+<li id="<%=@job.id %>">
+  <span class="title">
+    <%=@job.id %>
+  </span>
+  <span class="title">
+  	<%=@job.title %>
+  </span>
+  <span class="description">
+  	<%=@job.description %>
+  </span>
+  <span class="timestamp">
+  	Posted <%=time_ago_in_words(@job.created_at) %> ago.
+  </span>
+  <%=render 'apply_form' if signed_in? %>
+</li>

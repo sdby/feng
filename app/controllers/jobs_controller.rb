@@ -18,6 +18,10 @@ class JobsController < ApplicationController
     redirect_back_or root_path
   end
 
+  def show
+    @job=Job.find(params[:id])
+  end
+
   private
 
     def correct_employer

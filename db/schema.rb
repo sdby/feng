@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150118144743) do
+ActiveRecord::Schema.define(:version => 20150126085340) do
+
+  create_table "applications", :force => true do |t|
+    t.integer  "employee_id"
+    t.integer  "job_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "applications", ["employee_id", "job_id"], :name => "index_applications_on_employee_id_and_job_id", :unique => true
+  add_index "applications", ["employee_id"], :name => "index_applications_on_employee_id"
+  add_index "applications", ["job_id"], :name => "index_applications_on_job_id"
 
   create_table "employees", :force => true do |t|
     t.string   "name"

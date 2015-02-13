@@ -18,6 +18,21 @@
       <%=render 'shared/feed' %>
     </div>
   </div>
+<% elsif signed_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section>
+        <%=render 'shared/employee_info' %>
+      </section>
+      <section>
+        <%=render 'shared/employee_stats' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>Applied Job</h3>
+      <%=render 'shared/applied' %>
+    </div>
+  </div>
 <% else %>
 
 <div class="jumbotron">

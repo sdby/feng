@@ -41,6 +41,14 @@ describe Employee do
 
   it {should respond_to(:authenticate)}
 
+  it {should respond_to(:applications)}
+
+  it {should respond_to(:applied_jobs)}
+
+  it {should respond_to(:applying?)}
+  it {should respond_to(:apply!)}
+  it {should respond_to(:unapply!)}
+
   it {should be_valid}
   it {should_not be_admin}
 
@@ -131,5 +139,22 @@ describe Employee do
   describe "remember_token" do
     before {@employee.save}
     its(:remember_token){should_not be_blank}
+  end
+
+  describe "applying" do
+    let(:job){FactoryGirl.create(:job)}
+    before do
+      @employee.save
+      @employee.apply!(job)
+    end
+
+    it {should be_applying(job)}
+    its(:applied_jobs){should include(job)}
+
+    describe "and unapplying" do
+      before{@employee.unapply!(job)}
+      it{should_not be_applying(job)}
+      its(:applied_jobs){should_not include(job)}
+    end
   end
 end

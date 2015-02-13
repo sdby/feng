@@ -1,0 +1,10 @@
+<% @employee ||=current_employee %>
+
+<div class="stats">
+  <a href="<%=jobs_employee_path(@employee) %>">
+  	<strong id="jobs" class="stat">
+  	  <%=@employee.applications.count %>
+  	</strong>
+  	applications
+  </a>
+</div>

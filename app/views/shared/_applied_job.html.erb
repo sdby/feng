@@ -1,0 +1,27 @@
+<li id="<%=applied_job.id %>">
+
+  <%=link_to gravatar_for(applied_job.employer), applied_job.employer %>
+  <span class="employer">
+    <%=link_to applied_job.title, applied_job %>
+  </span>
+  <span class="title">
+    <%=applied_job.employer.name %>
+  </span>  
+<!--
+  <span class="title">
+    <%=applied_job.id %>
+  </span>
+  <span class="title">
+  	<%=applied_job.title %>
+  </span>
+  <span class="description">
+  	<%=applied_job.description %>
+  </span>
+  <span class="timestamp">
+  	Posted <%=time_ago_in_words(applied_job.created_at) %> ago.
+  </span>
+  <% if current_employee.applying?(applied_job) %>
+    <%=link_to "Unapply", current_employee.applications.find_by_job_id(applied_job.id), method: :delete, confirm: "You sure?", title: applied_job.title %>
+  <% end %>
+-->
+</li>

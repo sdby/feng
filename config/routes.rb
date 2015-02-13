@@ -1,9 +1,24 @@
 Feng::Application.routes.draw do
 
-  resources :employees
+  # get "applications/create"
+
+  # get "applications/destroy"
+
+  resources :employees do
+    member do
+      get :jobs
+    end
+  end
+
   resources :employers
   resources :sessions, only: [:new, :create, :destroy]
-  resources :jobs, only: [:create, :destroy]
+  resources :jobs, only: [:create, :destroy, :show] do
+    member do
+      get :applicants
+    end
+  end
+
+  resources :applications, only: [:create, :destroy]
 
   root to: 'static_pages#home'
   
